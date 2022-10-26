@@ -17,11 +17,13 @@ WebServer::WebServer( const Address & addr, const string & working_directory, co
     : config_file_( "/tmp/replayshell_apache_config" ),
       moved_away_( false )
 {
+    unsigned in_rtt = rtt;
+    cout << in_rtt << "server latency" << endl;
     config_file_.write( apache_main_config );
 
     config_file_.write( "WorkingDir " + working_directory + "\n" );
     config_file_.write( "RecordingDir " + record_path + "\n" );
-    config_file_.write( "RttDelay " + to_string(rtt) + "\n" );
+    //config_file_.write( "RttDelay " + to_string(rtt) + "\n" );
 
     /* if port 443, add ssl components */
     if ( addr.port() == 443 ) { /* ssl */
