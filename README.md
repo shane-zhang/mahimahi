@@ -12,3 +12,11 @@ For the original repo: Please refer [here](https://github.com/ravinet/mahimahi)
 #### To make it run
 1. edit **src/frontend/recordshell.cc** line 103 NIC name (default ens3 or enp0s3). Remake
 2. To parse the RTT, edit **PyScript/record-replay/parse.py** line line 36 NIC's ip address
+3. ./configure --prefix=/usr
+
+
+#### Additional Dep
+1. apt-get install nodejs npm
+2. npm init
+3. npm install bufferutil utf-8-validate chrome-remote-interface
+4. pip install scapy
