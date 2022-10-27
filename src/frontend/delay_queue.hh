@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 #include "file_descriptor.hh"
 
@@ -22,11 +23,13 @@ private:
     uint64_t delay_ms_;
     std::priority_queue< std::pair<uint64_t, std::string>, std::vector<std::pair<uint64_t, std::string>>, pair_comp> packet_queue_;
     std::unordered_map<std::string, float>ip_delays;
+    std::unordered_set<unsigned short> appeared_ports;
+    std::unordered_set<unsigned short> prelonged_ports;
     /* release timestamp, contents */
 
 public:
     DelayQueue( const uint64_t & s_delay_ms, const std::unordered_map<std::string, float>& delays) 
-    : delay_ms_( s_delay_ms ), packet_queue_(), ip_delays(delays){}
+    : delay_ms_( s_delay_ms ), packet_queue_(), ip_delays(delays), appeared_ports({}), prelonged_ports({}){}
 
     void read_packet( const std::string & contents );
 

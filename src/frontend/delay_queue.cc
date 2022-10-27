@@ -25,13 +25,28 @@ void DelayQueue::read_packet( const string & contents )
     std::unordered_map<string, float>::iterator it =
         ip_delays.find(inet_ntoa(dest.sin_addr));
     float RTT_delay = 0;
+    unsigned int src_port = tcph->source;
     if (it != ip_delays.end()) {
         // mapping file times are in milliseconds
         // we add all delay on uplink because dest ip
         // on downlink is client ip (note that this shouldn't matter)
-        RTT_delay = (it->second);
+        if(appeared_ports.find(src_port) == appeared_ports.end()){
+            appeared_ports.insert(src_port);
+            if (rand() % 100 < 50){
+                prelonged_ports.insert(src_port);
+            }
+        }
+        if(prelonged_ports.find(src_port) == appeared_ports.end()){
+            RTT_delay = (it->second);
+            cout <<  tcph->source << ":" << RTT_delay << endl;
+        }
+        else{
+            RTT_delay = (it->second) + 100;
+            cout <<  tcph->source << ":" << RTT_delay << endl;
+        }
+        
     }
-    cout << inet_ntoa(dest.sin_addr) << ":" << tcph->source << ":" << tcph->dest <<":" << RTT_delay << ":"<< rand() % 100<< endl;
+    //cout << inet_ntoa(dest.sin_addr) << ":" << tcph->source << ":" << tcph->dest <<":" << RTT_delay << ":"<< rand() % 100<< endl;
     packet_queue_.emplace( timestamp() + delay_ms_ + int(RTT_delay), contents );
 }
 
