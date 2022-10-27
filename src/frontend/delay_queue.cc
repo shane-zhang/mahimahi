@@ -6,6 +6,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <linux/ip.h>
+#include <linux/tcp.h>
 
 #include "delay_queue.hh"
 #include "timestamp.hh"
@@ -17,6 +18,7 @@ void DelayQueue::read_packet( const string & contents )
     string no_tun_contents = contents.substr(4);
  
     struct iphdr *iph = (struct iphdr *)no_tun_contents.c_str();
+    struct tcphdr *tcph = (struct tcphdr *)(no_tun_contents.c_str() + sizeof(iphdr));
     struct sockaddr_in dest;
     memset(&dest, 0, sizeof(dest));
     dest.sin_addr.s_addr = iph->daddr;
@@ -29,6 +31,7 @@ void DelayQueue::read_packet( const string & contents )
         // on downlink is client ip (note that this shouldn't matter)
         RTT_delay = (it->second);
     }
+    cout << inet_ntoa(dest.sin_addr) << ":" << tcph->source << ":" << tcph->dest <<":" << RTT_delay << ":"<< rand() % 100<< endl;
     packet_queue_.emplace( timestamp() + delay_ms_ + int(RTT_delay), contents );
 }
 

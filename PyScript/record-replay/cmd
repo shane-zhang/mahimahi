@@ -1,3 +1,4 @@
+sudo sysctl -w net.ipv4.ip_forward=1
 export mmpath=/
 python3 record.py http://www.shanezhang.com/80pic2.html
 python3 replay.py http://www.shanezhang.com/80pic2.html replay

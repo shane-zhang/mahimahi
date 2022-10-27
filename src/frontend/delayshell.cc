@@ -60,7 +60,7 @@ int main( int argc, char *argv[] )
             if (command.empty())
                 command.push_back(shell_path());
         }
-
+        srand (time(NULL));
         PacketShell<DelayQueue> delay_shell_app( "delay", user_environment);
 
         delay_shell_app.start_uplink( "[delay " + to_string( delay_ms ) + " ms] ",
