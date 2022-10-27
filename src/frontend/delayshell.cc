@@ -26,6 +26,20 @@ static void read_delays(string directory, unordered_map<string, float>& ip_delay
     return;
 }
 
+static void read_prelonged_delays(string directory, unordered_map<string, float>& prolonged_delays){
+    ifstream in(directory + "/prolonged_traffic.txt");
+    if (!in.good()) throw runtime_error(directory + "prolonged_traffic.txt not exists");
+    string line, ip;
+    float delay;
+    while(getline(in, line)) {
+        istringstream is(line);
+        is >> ip >> delay;
+        prolonged_delays[ip] = delay * 1000;
+    }
+    return;
+}
+
+
 int main( int argc, char *argv[] )
 {
     try {
@@ -44,6 +58,7 @@ int main( int argc, char *argv[] )
         vector< string > command;
         string directory;
         unordered_map<string, float> ip_delays;
+        unordered_map<string, float> prolonged_delays;
 
         if ( argc == 2 ) {
             command.push_back( shell_path() );
@@ -52,6 +67,7 @@ int main( int argc, char *argv[] )
             if (string(argv[i]) != "--"){
                 directory = string(argv[2]);
                 read_delays(directory, ip_delays);
+                read_prelonged_delays(directory, prolonged_delays);
                 i++;
             }
             for (++i; i < argc; i++ ) {
@@ -65,8 +81,8 @@ int main( int argc, char *argv[] )
 
         delay_shell_app.start_uplink( "[delay " + to_string( delay_ms ) + " ms] ",
                                       command, 
-                                      delay_ms, ip_delays);
-        delay_shell_app.start_downlink( 0, ip_delays);
+                                      delay_ms, ip_delays, prolonged_delays);
+        delay_shell_app.start_downlink( 0, ip_delays, prolonged_delays);
         return delay_shell_app.wait_for_exit();
     } catch ( const exception & e ) {
         print_exception( e );
