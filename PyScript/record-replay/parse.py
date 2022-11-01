@@ -78,7 +78,8 @@ def main():
         count += 1
         if len(times) < 2:
             continue
-        rtt = max(0.0, float(rtt_sample[count]) * 2 -0.029)
+        #rtt = max(0.0, float(rtt_sample[count]) * 2 -0.029)
+        rtt = times[1]-times[0]
         f.write('{}\t{}\n'.format(ip, rtt))
         f2.write('{}\t{}\n'.format(ip, rtt))
     f.close()
