@@ -15,7 +15,8 @@ record = True if len(sys.argv) == 3 and sys.argv[2]=="record" else False
 FNULL = open('/dev/null', 'w')
 
 def run_chrome():
-    Popen(['chromium-browser', '--headless', '--remote-debugging-port=9222', '--disable-gpu', '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
+    #Popen(['chromium-browser', '--headless', '--remote-debugging-port=9222', '--disable-gpu', '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
+    Popen(['chromium-browser', '--headless', '--remote-debugging-port=9222', '--disable-gpu', '--disable-web-security', '--allow-running-insecure-content' , '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
     sem.acquire()
     call(['pkill', 'chromium'])
 

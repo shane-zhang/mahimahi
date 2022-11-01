@@ -71,6 +71,7 @@ def main():
 
     f = open(os.path.join(os.environ['PWD'], 'RTT', os.path.basename(repo)) , 'w+')
     f2 = open(os.path.join(sys.argv[1], 'traffic.txt'), 'w+')
+    f3 = open(os.path.join(sys.argv[1], 'prolonged_traffic.txt'), 'w+')
 
     rtt_sample = sample(random_rtt, len(ip_map))
     count = -1
@@ -82,8 +83,11 @@ def main():
         rtt = times[1]-times[0]
         f.write('{}\t{}\n'.format(ip, rtt))
         f2.write('{}\t{}\n'.format(ip, rtt))
+        f3.write('{}\t{}\n'.format(ip, rtt))
+    f3.write('factor\t50\n')
     f.close()
     f2.close()
+    f3.close()
 
     while ttfb[-1] == '':
         del ttfb[-1]
