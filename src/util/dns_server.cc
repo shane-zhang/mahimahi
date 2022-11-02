@@ -30,7 +30,7 @@ ChildProcess start_dnsmasq( const vector< string > & extra_arguments )
 
     unsigned int attempts = 0;
     while ( true ) {
-        if ( ++attempts >= 20 ) {
+        if ( ++attempts >= 200 ) {
             throw runtime_error( "dnsmasq: did not start after " + to_string( attempts ) + " attempts" );
         }
 
