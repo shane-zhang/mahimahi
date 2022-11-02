@@ -3,6 +3,8 @@ const fs = require('fs')
 const url = require('url')
 const path = require('path')
 
+const timestamp = Date.now();
+
 let loaded = 0;
 let onload = null;
 
@@ -172,7 +174,7 @@ CDP((client) => {
             fs.appendFile(path.join('plTime', process.argv[3]), `PLT\t${ (end-begin)/1000 }\nNWT\t${ union(NWT) }\n`, (err) => {
                 if (err) throw err;
             });
-            fs.writeFile(path.join('network_log', process.argv[3] + '-' + process.argv[4] + '.json'), JSON.stringify(logs), 'utf-8', err=>{
+            fs.writeFile(path.join('network_log', process.argv[3] + '-' + process.argv[4] + timestamp + '.json'), JSON.stringify(logs), 'utf-8', err=>{
                 if (err) throw err;
             });
         }

@@ -32,7 +32,8 @@ void DelayQueue::read_packet( const string & contents )
         // on downlink is client ip (note that this shouldn't matter)
         if(appeared_ports.find(src_port) == appeared_ports.end()){
             appeared_ports.insert(src_port);
-            if (rand() % 100 < 50){
+            cout << "factor:" << (int) prolonged_delays.find("factor")->second/1000<< endl;
+            if (rand() % 100 < (int) prolonged_delays.find("factor")->second/1000){
                 prelonged_ports.insert(src_port);
             }
         }
