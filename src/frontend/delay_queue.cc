@@ -42,7 +42,7 @@ void DelayQueue::read_packet( const string & contents )
             cout <<  tcph->source << ":" << RTT_delay << endl;
         }
         else{
-            RTT_delay = (it->second) + prolonged_delays.find(inet_ntoa(dest.sin_addr))->second;
+            RTT_delay = prolonged_delays.find(inet_ntoa(dest.sin_addr))->second;
             cout <<  tcph->source << ":" << RTT_delay << endl;
         }
         
