@@ -1,13 +1,10 @@
-1,google.com,False,Google
-2,youtube.com,True,Google
-3,facebook.com,True,Facebook,31.13.66.19
-8,live.com,True,Akamai
-9,instagram.com,True,Facebook,31.13.66.63
-10,vk.com,True
 12,weibo.com,True,Akamai
-14,login.tmall.com,True,Alibaba,8.45.52.252,8.25.82.251
-21,linkedin.com,True,Akamai,Edgio
-23,t.co,False,Edgio,152.199.24.185
-25,csdn.net,True,BaishanCloud,Kingsoft Cloud,Alibaba
-26,www.alipay.com,True,Alibaba,8.25.82.251,8.45.52.251,8.38.121.245,8.38.121.245,8.38.121.246
-28,ok.ru,True,mycdn,217.20.155.82
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai
+12,weibo.com,True,Akamai

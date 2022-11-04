@@ -83,7 +83,7 @@ def main():
         rtt = times[1]-times[0]
         f.write('{}\t{}\n'.format(ip, rtt))
         f2.write('{}\t{}\n'.format(ip, rtt))
-        f3.write('{}\t{}\n'.format(ip, rtt))
+        f3.write('{}\t{}\n'.format(ip, 0))
     f3.write('factor\t50\n')
     f.close()
     f2.close()
