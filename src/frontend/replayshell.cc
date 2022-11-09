@@ -119,7 +119,7 @@ int main( int argc, char *argv[] )
 
             const vector< string > files = list_directory_contents( directory  );
 
-            for ( const auto filename : files ) {
+            for ( const auto & filename : files ) {
                 size_t point = filename.find_last_of('.');
                 if (filename.substr(point-4, 4) != "save") continue;
 
@@ -145,14 +145,14 @@ int main( int argc, char *argv[] )
 
         /* set up dummy interfaces */
         unsigned int interface_counter = 0;
-        for ( const auto ip : unique_ip ) {
+        for ( const auto & ip : unique_ip ) {
             add_dummy_interface( "sharded" + to_string( interface_counter ), ip );
             interface_counter++;
         }
 
         /* set up web servers */
         vector< WebServer > servers;
-        for ( const auto ip_port : unique_ip_and_port ) {
+        for ( const auto & ip_port : unique_ip_and_port ) {
             servers.emplace_back( ip_port, working_directory, directory, unsigned(ip_delays[ip_port.ip()]) );
             /* Used for debugging*/
             // cout << ip_port.ip() << ": ";
@@ -166,7 +166,7 @@ int main( int argc, char *argv[] )
 
         /* set up DNS server */
         TempFile dnsmasq_hosts( "/tmp/replayshell_hosts" );
-        for ( const auto mapping : hostname_to_ip ) {
+        for ( const auto & mapping : hostname_to_ip ) {
             dnsmasq_hosts.write( mapping.second.ip() + " " + mapping.first + "\n" );
         }
 
