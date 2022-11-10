@@ -41,13 +41,13 @@ temp = open('tmp','w+')
 time.sleep(2)
 begin = time.time()
 if record:
-    call(['node', 'run.js', web, 'true'], stdout=temp)
+    call(['node', '--no-warnings', 'run.js', web, 'true'], stdout=temp)
 else:
-    call(['node', 'run.js', web, urlparse(web).netloc, sys.argv[2] ])
+    call(['node', '--no-warnings', 'run.js', web, urlparse(web).netloc, sys.argv[2] ])
 end = time.time()
 
-if record:
-    filter('tmp', end-begin)
+#if record:
+#    filter('tmp', end-begin)
 
 stage = 'record' if record else 'replay'
 debug_url = urlparse(web).netloc if urlparse(web).netloc != '' else 'ftp'

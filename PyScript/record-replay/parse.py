@@ -89,15 +89,15 @@ def main():
     f2.close()
     f3.close()
 
-    while ttfb[-1] == '':
-        del ttfb[-1]
-    for t in ttfb:
-        parse_result = urlparse(t.split('\t')[0])
-        host = parse_result.netloc
-        uri = parse_result.path
-        if host not in host_map:
-            host_map[host] = {}
-        host_map[host][uri] = float(t.split('\t')[1])
+#    while ttfb[-1] == '':
+#        del ttfb[-1]
+#    for t in ttfb:
+#        parse_result = urlparse(t.split('\t')[0])
+#        host = parse_result.netloc
+#        uri = parse_result.path
+#        if host not in host_map:
+#            host_map[host] = {}
+#        host_map[host][uri] = float(t.split('\t')[1])
     for host, uri_delay in host_map.items():
         f = open(os.path.join(repo, host), 'w+')
         for uri, delay in uri_delay.items():
