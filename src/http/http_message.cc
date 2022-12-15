@@ -167,7 +167,6 @@ std::string HTTPMessage::str( void ) const
             ret.append( header.str() + CRLF );
         }
         else{
-            ret.append( header.str() + CRLF );
             chunked = true;
         }
     }
@@ -180,8 +179,7 @@ std::string HTTPMessage::str( void ) const
         ret.append( body_ );
     }
     else{
-        //ret.append(h2_body());
-        ret.append(body_);
+        ret.append(h2_body());
     }
     
 

@@ -183,8 +183,7 @@ int main( void )
         //if (duration) delay(duration);
         if ( best_score > 0 ) { /* give client the best match */
             //delay(max(0, int(find_delays(host, recording_directory, strip_query(uri))) - int(rtt_delay)) );
-            //cout << HTTPResponse( best_match.response() ).str().replace(0,8, "HTTP/2.0");
-            cout << HTTPResponse( best_match.response() ).str();
+            cout << HTTPResponse( best_match.response() ).str().replace(0,8, "HTTP/2.0");
             return EXIT_SUCCESS;
         } else {                /* no acceptable matches for request */
             cout << "HTTP/1.1 404 Not Found" << CRLF;
