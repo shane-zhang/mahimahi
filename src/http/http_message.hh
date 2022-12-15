@@ -70,7 +70,8 @@ public:
 
     /* serialize the request or response as one string */
     std::string str( void ) const;
-
+    std::string h2_body( void ) const;
+    std::string ret_body( void ) const;
     /* return complete request or response as http_message protobuf */
     MahimahiProtobufs::HTTPMessage toprotobuf( void ) const;
 

@@ -156,17 +156,61 @@ std::string HTTPMessage::str( void ) const
 {
     assert( state_ == COMPLETE );
 
+    bool chunked = false;
+
     /* start with first line */
     string ret( first_line_ + CRLF );
 
     /* iterate through headers and add "key: value\r\n" to request */
     for ( const auto & header : headers_ ) {
-        ret.append( header.str() + CRLF );
+        if (header.str().compare("transfer-encoding: chunked") != 0){
+            ret.append( header.str() + CRLF );
+        }
+        else{
+            ret.append( header.str() + CRLF );
+            chunked = true;
+        }
     }
 
     /* blank line between headers and body */
     ret.append( CRLF );
 
+    /* add body to request */
+    if (chunked == false){
+        ret.append( body_ );
+    }
+    else{
+        //ret.append(h2_body());
+        ret.append(body_);
+    }
+    
+
+    return ret;
+}
+
+std::string HTTPMessage::h2_body( void ) const
+{
+    std::string h2_body("");
+    std::string cur_string(body_);
+    size_t index = 0;
+    while (true)
+    {
+        index = cur_string.find("\r\n");
+        std::string chunk_len_b = cur_string.substr(0, index);
+        std::string chunk = cur_string.substr(index+2, cur_string.length() - index-2);
+        unsigned int chunk_len = std::stoul(chunk_len_b, nullptr, 16);
+        if (chunk_len == 0) break;
+        h2_body.append(chunk.substr(0, chunk_len));
+        cur_string = chunk.substr(chunk_len+2, chunk.length() - chunk_len-2);
+    }
+    return h2_body;
+}
+
+std::string HTTPMessage::ret_body( void ) const
+{
+
+    /* start with first line */
+    string ret("");
     /* add body to request */
     ret.append( body_ );
 

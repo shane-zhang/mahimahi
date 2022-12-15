@@ -56,9 +56,10 @@ function union(li) {
     }
     // console.log("After union: ");
     //console.log(list_stringify(final));
-    for (let i = 0; i < final.length; i++){
-        NWT += final[i][1] - final[i][0];
-    }
+    //for (let i = 0; i < final.length; i++){
+    //    NWT += final[i][1] - final[i][0];
+    //}
+    NWT = 0;
     return NWT;
 }
 

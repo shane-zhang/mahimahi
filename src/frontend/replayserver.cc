@@ -58,11 +58,13 @@ bool header_match( const string & env_var_name,
 
 string strip_query( const string & request_line )
 {
-    const auto index = request_line.find( "?" );
+    const auto pre_index = request_line.find(" HTTP");
+    string temp_string = request_line.substr( 0, pre_index );
+    const auto index = temp_string.find( "?" );
     if ( index == string::npos ) {
-        return request_line;
+        return temp_string;
     } else {
-        return request_line.substr( 0, index );
+        return temp_string.substr( 0, index );
     }
 }
 
@@ -88,11 +90,14 @@ int match_score( const MahimahiProtobufs::RequestResponse & saved_record,
     }
 
     /* match user agent */
-    if ( not header_match( "HTTP_USER_AGENT", "User-Agent", saved_request ) ) {
-        return -2;
-    }
+    //if ( not header_match( "HTTP_USER_AGENT", "User-Agent", saved_request ) ) {
+    //    return -2;
+    //}
 
     /* must match first line up to "?" at least */
+    //ofstream file1("/tmp/server.log", ios_base::app);
+    //file1 << strip_query( request_line ) << "|" << strip_query( saved_request.first_line() ) << "|" << saved_request.get_header_value( "User-Agent" ) << "|" << getenv("HTTP_USER_AGENT")<<endl;
+    //file1.close();
     if ( strip_query( request_line ) != strip_query( saved_request.first_line() ) ) {
         //log += strip_query( request_line ) + " vs. " + strip_query( saved_request.first_line() ) + " | ";
         return -1;
@@ -160,8 +165,10 @@ int main( void )
             if ( not current_record.ParseFromFileDescriptor( fd.fd_num() ) ) {
                 throw runtime_error( filename + ": invalid HTTP request/response" );
             }
-
             int score = match_score( current_record, request_line, is_https );
+            //ofstream file1("/tmp/server.log", ios_base::app);
+            //file1 << "Got file" <<filename << "|" << score << "|" << request_line <<endl;
+            //file1.close();
             if ( score > 0 and score >  best_score ) {
                 best_match = current_record;
                 best_score = score;
@@ -169,9 +176,14 @@ int main( void )
                 best_score = score;
         }
 
+        //ofstream file1("/tmp/server.log", ios_base::app);
+        //file1 << best_score <<"|" << HTTPResponse( best_match.response() ).str().replace(0,8, "HTTP/2.0") <<endl;
+        //file1.close();
+
         //if (duration) delay(duration);
         if ( best_score > 0 ) { /* give client the best match */
             //delay(max(0, int(find_delays(host, recording_directory, strip_query(uri))) - int(rtt_delay)) );
+            //cout << HTTPResponse( best_match.response() ).str().replace(0,8, "HTTP/2.0");
             cout << HTTPResponse( best_match.response() ).str();
             return EXIT_SUCCESS;
         } else {                /* no acceptable matches for request */
