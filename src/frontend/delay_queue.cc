@@ -32,18 +32,21 @@ void DelayQueue::read_packet( const string & contents )
         // on downlink is client ip (note that this shouldn't matter)
         if(appeared_ports.find(src_port) == appeared_ports.end()){
             appeared_ports.insert(src_port);
-            cout << "factor:" << (int) prolonged_delays.find("factor")->second/1000<< endl;
             if (rand() % 100 < (int) prolonged_delays.find("factor")->second/1000){
                 prelonged_ports.insert(src_port);
+                cout << "Prolonged Port: " <<src_port <<":"<< inet_ntoa(dest.sin_addr) << endl;
+            }
+            else{
+                cout << "Normal Port: " << src_port <<":"<< inet_ntoa(dest.sin_addr)  << endl;
             }
         }
         if(prelonged_ports.find(src_port) == appeared_ports.end()){
             RTT_delay = (it->second);
-            cout <<  tcph->source << ":" << RTT_delay << endl;
+            cout <<  tcph->source <<":"<< inet_ntoa(dest.sin_addr)  << ":" << RTT_delay << endl;
         }
         else{
             RTT_delay = (it->second) + prolonged_delays.find(inet_ntoa(dest.sin_addr))->second;
-            cout <<  tcph->source << ":" << RTT_delay << endl;
+            cout <<  tcph->source <<":"<< inet_ntoa(dest.sin_addr)  << ":" << RTT_delay << ":"<< prolonged_delays.find(inet_ntoa(dest.sin_addr))->second << endl;
         }
         
     }

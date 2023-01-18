@@ -14,8 +14,8 @@ from random import sample
 
 repo = sys.argv[1] if sys.argv[1] != '' else 'ftp'
 pkts = rdpcap(os.path.join(repo, 'traffic.pcap'))
-ttfb = open(os.path.join(repo, 'ttfb.txt'), 'r').readlines()
-random_rtt = open('cdf_data', 'r').readlines()
+#ttfb = open(os.path.join(repo, 'ttfb.txt'), 'r').readlines()
+#random_rtt = open('cdf_data', 'r').readlines()
 ip_map = {} # ip: [S, SA]
 host_map = {} # host: {url: delay}
 ping_map = {}
@@ -73,7 +73,7 @@ def main():
     f2 = open(os.path.join(sys.argv[1], 'traffic.txt'), 'w+')
     f3 = open(os.path.join(sys.argv[1], 'prolonged_traffic.txt'), 'w+')
 
-    rtt_sample = sample(random_rtt, len(ip_map))
+#    rtt_sample = sample(random_rtt, len(ip_map))
     count = -1
     for ip, times in ip_map.items():
         count += 1

@@ -16,10 +16,11 @@ FNULL = open('/dev/null', 'w')
 
 def run_chrome():
     #Popen(['chromium-browser', '--headless', '--remote-debugging-port=9222', '--disable-gpu', '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
-    #Popen(['chromium-browser', '--auto-open-devtools-for-tabs', '--remote-debugging-port=9222', '--disable-gpu', '--disable-web-security', '--allow-running-insecure-content' , '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
-    Popen(['chromium-browser', '--headless', '--remote-debugging-port=9222', '--disable-gpu', '--disable-web-security', '--allow-running-insecure-content' , '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
+    #Popen(['chromium-browser', '--remote-debugging-port=9222', '--disable-gpu', '--disable-web-security', '--allow-running-insecure-content' , '--ignore-certificate-errors', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1'], stdout=FNULL, stderr=STDOUT)
+    print ("Use Chrome")
+    Popen(['google-chrome',  '--headless', '--user-data-dir=/tmp/nonexistent-%s'% time.time(), '--disk-cache-size=1', '--ignore-certificate-errors', web], stdout=FNULL, stderr=STDOUT)
     sem.acquire()
-    call(['pkill', 'chromium'])
+    call(['pkill', 'google-chrome'])
 
 def filter(temp, delay):
     ttfb = open(temp, 'r').read().split('\n')
@@ -42,9 +43,11 @@ temp = open('tmp','w+')
 time.sleep(2)
 begin = time.time()
 if record:
-    call(['node', '--no-warnings', 'run.js', web, 'true'], stdout=temp)
+    print ("enter record")
+    #call(['node', '--no-warnings', 'run.js', web, 'true'], stdout=FNULL)
 else:
-    call(['node', '--no-warnings', 'run.js', web, urlparse(web).netloc, sys.argv[2] ])
+    #call(['node', '--no-warnings', 'run.js', web, urlparse(web).netloc, sys.argv[2] ])
+    print ("enter replay")
 end = time.time()
 
 #if record:
