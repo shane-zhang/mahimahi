@@ -163,7 +163,7 @@ std::string HTTPMessage::str( void ) const
 
     /* iterate through headers and add "key: value\r\n" to request */
     for ( const auto & header : headers_ ) {
-        if (header.str().compare("transfer-encoding: chunked") != 0){
+        if (header.str().find("chunked") == std::string::npos){
             ret.append( header.str() + CRLF );
         }
         else{
@@ -201,6 +201,7 @@ std::string HTTPMessage::h2_body( void ) const
         h2_body.append(chunk.substr(0, chunk_len));
         cur_string = chunk.substr(chunk_len+2, chunk.length() - chunk_len-2);
     }
+    h2_body.append("\r\n");
     return h2_body;
 }
 

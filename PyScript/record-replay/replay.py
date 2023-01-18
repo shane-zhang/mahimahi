@@ -4,7 +4,7 @@ import sys
 from urllib.parse import urlparse
 
 url = sys.argv[1]
-web =  urlparse(url).netloc if urlparse(url).netloc!='' else 'ftp'
+web = urlparse(url).netloc
 
 mmwebreplay = os.path.join(os.environ['mmpath'], 'usr/bin/mm-webreplay')
 mmlink = os.path.join(os.environ['mmpath'], 'usr/bin/mm-link')
@@ -13,6 +13,6 @@ repo =  os.path.join(os.environ['mmpath'], 'tmp')
 
 try:
     print ([mmwebreplay, os.path.join(repo, web), mmdelay, '0', os.path.join(repo, web), '--', 'python3', 'chrome.py', url, sys.argv[2]])
-    call([mmwebreplay, os.path.join(repo, web), mmdelay, '0', os.path.join(repo, web), '--', 'python3', 'chrome.py', url, sys.argv[2]], timeout=60, env=os.environ.copy())
+    call([mmwebreplay, os.path.join(repo, web), mmdelay, '0', os.path.join(repo, web), '--', 'browsertime', url, '-n', '1'], timeout=120, env=os.environ.copy())
 except Exception as e:
     print(str(e))

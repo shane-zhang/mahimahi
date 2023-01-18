@@ -6,6 +6,7 @@
 *.slo
 *.json
 .deps
+*.ipynb
 Makefile
 Makefile.in
 weblist
