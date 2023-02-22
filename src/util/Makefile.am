@@ -1,4 +1,4 @@
-AM_CPPFLAGS = $(CXX11_FLAGS)
+AM_CPPFLAGS = $(CXX11_FLAGS) -Wno-stringop-truncation
 AM_CXXFLAGS = $(PICKY_CXXFLAGS)
 
 noinst_LIBRARIES = libutil.a
