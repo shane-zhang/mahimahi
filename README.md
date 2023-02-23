@@ -20,3 +20,7 @@ For the original repo: Please refer [here](https://github.com/ravinet/mahimahi)
 2. npm init
 3. npm install bufferutil utf-8-validate chrome-remote-interface
 4. pip install scapy
+
+
+
+sudo apt-get install apache2 dnsmasq protobuf-compiler libprotobuf-dev apache2-dev pkg-config libxcb-present-dev libcairo2-dev libpango1.0-dev xvfb screen libssl-dev
