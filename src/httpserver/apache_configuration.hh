@@ -9,7 +9,7 @@
 
 //const std::string apache_main_config = "LoadModule mpm_prefork_module " + std::string( MOD_MPM_PREFORK ) + "\nLoadModule authz_core_module " + std::string( MOD_AUTHZ_CORE ) + "\nMutex pthread\nLoadFile " + std::string( MOD_DEEPCGI ) + "\nLoadModule deepcgi_module " + std::string( MOD_DEEPCGI ) + "\nSetHandler deepcgi-handler\n";
 
-const std::string apache_main_config = "LoadModule mpm_event_module " + std::string( MOD_MPM_EVENT ) + "\nLoadModule http2_module " + std::string( MOD_HTTP2 ) + "\nProtocols http/1.1" + "\nLoadModule authz_core_module " + std::string( MOD_AUTHZ_CORE ) + "\nMutex pthread\nLoadFile " + std::string( MOD_DEEPCGI ) + "\nLoadModule deepcgi_module " + std::string( MOD_DEEPCGI ) + "\nSetHandler deepcgi-handler\n";
+const std::string apache_main_config = "LoadModule mpm_event_module " + std::string( MOD_MPM_EVENT ) + "\nThreadsPerChild  5\nServerLimit  2\nAsyncRequestWorkerFactor  2\nMaxRequestWorkers  10"  + "\nLoadModule http2_module " + std::string( MOD_HTTP2 ) + "\nProtocols h2 h2c" + "\nLoadModule authz_core_module " + std::string( MOD_AUTHZ_CORE ) + "\nMutex pthread\nLoadFile " + std::string( MOD_DEEPCGI ) + "\nLoadModule deepcgi_module " + std::string( MOD_DEEPCGI ) + "\nSetHandler deepcgi-handler\n";
 
 //const std::string apache_main_config = "LoadModule mpm_event_module " + std::string( MOD_MPM_EVENT ) + "\nLoadModule http2_module " + std::string( MOD_HTTP2 ) + "\nProtocols h2" + "\nLoadModule authz_core_module " + std::string( MOD_AUTHZ_CORE ) + "\nMutex pthread\nLoadFile " + std::string( MOD_DEEPCGI ) + "\nLoadModule deepcgi_module " + std::string( MOD_DEEPCGI ) + "\nSetHandler deepcgi-handler\n";
 
